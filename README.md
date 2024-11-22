@@ -12,7 +12,7 @@
 
 ### 1.克隆项目
 ```shell
-git clone ...
+git clone git@github.com:shelhen/jsnu_netkit.git
 ```
 这里记住项目文件 `jsnu_netkit.py`的绝对路径，为描述方便，以下简称为`script_path`。
 
