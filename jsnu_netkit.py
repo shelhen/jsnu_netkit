@@ -12,13 +12,14 @@
 """
 import re
 import sys
-from pathlib import Path
 from requests import Session, ConnectTimeout, ConnectionError
 from base64 import b64encode, b64decode
 from Crypto.Cipher import DES
 from Crypto.Util.Padding import pad
 from urllib.parse import quote
 from parsel import Selector
+from psutil import process_iter, NoSuchProcess
+import time
 
 
 class NetConnect(object):
@@ -32,7 +33,7 @@ class NetConnect(object):
         self.url = None
         status = self.check()
         if not status:
-            exit(1)
+            raise Exception("不正确的状态。")
         self.apis = {
             "login": "https://sid.jsnu.edu.cn/cas/login",
             "index": "/index.jsp",
@@ -114,8 +115,7 @@ class NetConnect(object):
         response = self.session.post(execute_url, data=data)
         result = response.json().get("result", "error")
         if result != "success":
-            print("登陆失败。")
-            exit(1)
+            raise Exception("登录失败！")
         print('登陆成功！')
 
     @staticmethod
@@ -127,7 +127,21 @@ class NetConnect(object):
         return b64encode(encrypted_text).decode()
 
 
+def kill_captive_assistant():
+    for process in process_iter():
+        if process.name() == "Captive Network Assistant":
+            process.terminate()
+
 if __name__ == '__main__':
-    wc = NetConnect()
     # python jsnu_netkit.py 2020220062 Shelhen0405@static 中国电信
-    wc.login(username=sys.argv[1], password=sys.argv[2], server=sys.argv[3])
+    i = 0
+    while i < 4:
+        try:
+            # # mac系统下 Captive Network Assistant 执行过程中，会导致断网，因此先尝试结束该进程
+            kill_captive_assistant()
+            time.sleep(i + 1)
+            wc = NetConnect()
+            wc.login(username=sys.argv[1], password=sys.argv[2], server=sys.argv[3])
+        except Exception as e:
+            print("Error {0}".format(e))
+        i += 1
