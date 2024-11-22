@@ -50,7 +50,39 @@ python3 <script_path> <username> <password> <server>
 ```bash
 chmod +x ./jsnu_netkit.sh
 ```
-最后，打开设置>通用>登录项与扩展>登录时打开 对话框，选择刚刚编辑的`*/jsnu_netkit.sh`
+最后，打开终端进入文件夹`~/Library/LaunchAgents`新建文件`com.jsnu.netkit.plist`，内容如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.jsnu.netkit</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/shelhen/projects/jsnu_netkit/jsnu_netkit.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+```
+其中 `ProgramArguments`参数对应的`string`中填入自己新建的 `jsnu_netkit.sh`绝对路径，如：`/Users/*****/projects/jsnu_netkit/jsnu_netkit.sh`，`label`标签对应的`string`应该是该文件去掉后缀的文件名。 然后打开终端执行：
+```shell
+# 检查任务格式是否正确
+plutil -lint com.jsnu.netkit.plist
+# .... ok
+
+# 加载开机自动任务
+launchctl load -w com.jsnu.netkit.plist
+# 查看当前任务中包含 com.jsnu 的任务
+launchctl list | grep com.jsnu
+# -   78    com.applefs.user # 错误结果
+# -   0     com.applefs.user # 正确结果
+```
+从爱师大登出设备，重新启动pc测试是否已经正常连接网络。
+
 
 - Linux
 暂不支持。
