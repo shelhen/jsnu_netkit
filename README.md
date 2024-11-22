@@ -61,7 +61,7 @@ chmod +x ./jsnu_netkit.sh
     <string>com.jsnu.netkit</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/shelhen/projects/jsnu_netkit/jsnu_netkit.sh</string>
+        <string>/Users/****/projects/jsnu_netkit/jsnu_netkit.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
@@ -78,8 +78,8 @@ plutil -lint com.jsnu.netkit.plist
 launchctl load -w com.jsnu.netkit.plist
 # 查看当前任务中包含 com.jsnu 的任务
 launchctl list | grep com.jsnu
-# -   78    com.applefs.user # 错误结果
-# -   0     com.applefs.user # 正确结果
+# -   78    com.jsnu.netkit # 错误结果
+# -   0     om.jsnu.netkit # 正确结果
 ```
 从爱师大登出设备，重新启动pc测试是否已经正常连接网络。
 
