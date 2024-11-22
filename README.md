@@ -18,7 +18,7 @@ git clone git@github.com:shelhen/jsnu_netkit.git
 
 ### 2.安装依赖
 ```python
-pip install requests parsel pycryptodome
+pip install requests parsel pycryptodome psutil
 ```
 建议将`python`添加至系统或用户环境，环境安装在基环境目录中。
 
