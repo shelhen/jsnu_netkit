@@ -41,7 +41,7 @@ exit
 首先在任意路径新建名为`jsnu_netkit.sh`的脚本文件，内容如下：
 ```shell
 # 激活环境
-source ~projects/envs/common/bin/activate
+source ~/projects/envs/common/bin/activate
 python3 <script_path> <username> <password> <server>
 ```
 其中`<script_path>`应是脚本文件的绝对路径，`<username>`和`<password>`分别为自己登录校园网的账号和密码，`<server>`是自己的服务商，可选填入 “中国电信”、“中国移动”或“中国联通”，例如：`python3 ~/jsnu_netkit/jsnu_netkit.py 20202*0078 password123 中国电信`。 
