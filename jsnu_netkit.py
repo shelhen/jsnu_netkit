@@ -13,14 +13,13 @@
 import re
 import sys
 import smtplib
-from requests import Session, ConnectTimeout, ConnectionError
+from requests import Session
 from base64 import b64encode, b64decode
 from Crypto.Cipher import DES
 from Crypto.Util.Padding import pad
 from urllib.parse import quote
 from parsel import Selector
 from psutil import _common, net_if_stats, process_iter, net_if_addrs
-import time
 from pathlib import Path
 from email.mime.text import MIMEText
 
@@ -46,7 +45,7 @@ class NetConnect(object):
         if self.is_mail:
             self.recvers = ["shelhen@163.com", ]
             self.sender = "shelhen@163.com"
-            self.password = "************"
+            self.password = "&***^&^&^*&^&**iux"
             self.host = "smtp.163.com"
             self.port = 465
 
